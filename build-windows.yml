@@ -1,0 +1,22 @@
+name: Build Windows EXE
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install packages
+        run: pip install -r requirements-build.txt
+      - name: Build EXE
+        run: pyinstaller --noconfirm --clean --onefile --windowed --name "Искуренный интеллект 6.0" --hidden-import=pypdf --hidden-import=docx --hidden-import=SpeechRecognition --hidden-import=pyttsx3 iskurenniy_intellect_v6.py
+      - name: Upload EXE
+        uses: actions/upload-artifact@v4
+        with:
+          name: Искуренный-интеллект-6-Windows
+          path: dist/*.exe

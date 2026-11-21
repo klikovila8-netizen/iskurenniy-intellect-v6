@@ -1,0 +1,5 @@
+pyinstaller
+pypdf
+python-docx
+SpeechRecognition
+pyttsx3
